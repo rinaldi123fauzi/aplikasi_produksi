@@ -35,12 +35,14 @@
           <td>{{ $txproduct->location->nama_lokasi }}</td>
           <td>{{ $txproduct->npk }}</td>
           <td>
-            <a href="/txproduct/{{ $txproduct->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-            <form action="/txproduct/{{ $txproduct->id }}" method="post" class="d-inline">
-              @method('delete')
-              @csrf
-              <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
-            </form>
+            @if (auth()->user()->username != "superadmin")
+              <a href="/tx_product/{{ $txproduct->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+              <form action="/tx_product/{{ $txproduct->id }}" method="post" class="d-inline">
+                @method('delete')
+                @csrf
+                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
+              </form>
+            @endif
           </td>
         </tr>
         @endforeach

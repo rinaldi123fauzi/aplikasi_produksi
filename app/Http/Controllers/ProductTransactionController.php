@@ -16,9 +16,15 @@ class ProductTransactionController extends Controller
      */
     public function index()
     {
-        return view('dashboard.tx_product.index', [
-            'txproducts' => ProductTransaction::with(['location','item'])->latest()->get() //eager loading
-        ]);
+        if (auth()->user()->username != "superadmin"){
+            return view('dashboard.tx_product.index', [
+                'txproducts' => ProductTransaction::with(['location','item'])->where('npk', auth()->user()->username)->latest()->get() //eager loading
+            ]);
+        }else{
+            return view('dashboard.tx_product.index', [
+                'txproducts' => ProductTransaction::with(['location','item'])->latest()->get() //eager loading
+            ]);
+        }
     }
 
     /**
@@ -55,7 +61,7 @@ class ProductTransactionController extends Controller
 
         ProductTransaction::create($validateData);
 
-        return redirect('/tx_product')->with('success', 'New post success');
+        return redirect('/tx_product')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -75,9 +81,14 @@ class ProductTransactionController extends Controller
      * @param  \App\Models\ProductTransaction  $productTransaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductTransaction $productTransaction)
-    {
-        //
+    public function edit($id)
+    {   
+        $productTransaction = ProductTransaction::find($id);
+        return view('dashboard.tx_product.edit',[
+            'productTransaction' => $productTransaction,
+            'locations' => Location::all(),
+            'items' => Item::all()
+        ]);
     }
 
     /**
@@ -87,9 +98,21 @@ class ProductTransactionController extends Controller
      * @param  \App\Models\ProductTransaction  $productTransaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductTransaction $productTransaction)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'location_id' => 'required',
+            'item_id' => 'required',
+            'qty_transaction' => 'required'
+        ];
+
+        $validateData = $request->validate($rules);
+
+        $validateData['npk'] = auth()->user()->username;
+
+        ProductTransaction::where('id', $id)
+            ->update($validateData);
+        return redirect('/tx_product')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -98,8 +121,10 @@ class ProductTransactionController extends Controller
      * @param  \App\Models\ProductTransaction  $productTransaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductTransaction $productTransaction)
+    public function destroy($id)
     {
-        //
+        ProductTransaction::destroy($id);
+
+        return redirect('/tx_product')->with('success', 'Data Berhasil Dihapus');
     }
 }
