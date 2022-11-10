@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('achivements', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
-            $table->string('nama');
             $table->time('time_from');
             $table->time('time_to');
             $table->timestamps();

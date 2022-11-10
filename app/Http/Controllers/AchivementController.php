@@ -26,7 +26,7 @@ class AchivementController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.achivement.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class AchivementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'kode' => 'required|max:50|unique:achivements',
+            'time_from' => 'required',
+            'time_to' => 'required',
+        ]);
+        Achivement::create($validateData);
+
+        return redirect('/achivement')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -57,9 +64,11 @@ class AchivementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Achivement $achivement)
     {
-        //
+        return view('dashboard.achivement.edit',[
+            'achivement' => $achivement,
+        ]);
     }
 
     /**
@@ -69,9 +78,23 @@ class AchivementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Achivement $achivement)
     {
-        //
+        $rules = [
+            'time_from' => 'required',
+            'time_to' => 'required',
+        ];
+
+        if ($request->kode != $achivement->kode){
+            $rules['kode'] = 'required|max:50|unique:achivement';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Achivement::where('id', $achivement->id)
+            ->update($validateData);
+
+        return redirect('/achivement')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -80,8 +103,10 @@ class AchivementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Achivement $achivement)
     {
-        //
+        Achivement::destroy($achivement->id);
+
+        return redirect('/item')->with('success', 'Data Berhasil Dihapus');
     }
 }

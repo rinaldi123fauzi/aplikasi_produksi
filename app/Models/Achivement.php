@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Achivement extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'kode',
+        'time_from',
+        'time_to'
+    ];
 }
