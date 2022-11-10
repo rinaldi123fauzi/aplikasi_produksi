@@ -26,7 +26,7 @@ class PlanningController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.planning.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class PlanningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'kode' => 'required|max:50|unique:plannings',
+            'qty_target' => 'required',
+            'waktu_target' => 'required',
+        ]);
+        Planning::create($validateData);
+
+        return redirect('/planning')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -57,9 +64,11 @@ class PlanningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Planning $planning)
     {
-        //
+        return view('dashboard.planning.edit',[
+            'planning' => $planning,
+        ]);
     }
 
     /**
@@ -69,9 +78,23 @@ class PlanningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Planning $planning)
     {
-        //
+        $rules = [
+            'qty_target' => 'required',
+            'waktu_target' => 'required',
+        ];
+
+        if ($request->kode != $planning->kode){
+            $rules['kode'] = 'required|max:50|unique:employees';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Planning::where('id', $planning->id)
+            ->update($validateData);
+
+        return redirect('/planning')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -80,8 +103,10 @@ class PlanningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Planning $planning)
     {
-        //
+        Planning::destroy($planning->id);
+
+        return redirect('/planning')->with('success', 'Data Berhasil Dihapus');
     }
 }

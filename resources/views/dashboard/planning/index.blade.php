@@ -10,7 +10,7 @@
     </div>
   @endif
   <div class="table-responsive col-lg-8">
-    <a href="/dashboard/planning/create" class="btn btn-primary mb-3">Create</a>
+    <a href="/planning/create" class="btn btn-primary mb-3">Create</a>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -29,9 +29,8 @@
           <td>{{ $planning->qty_target }}</td>
           <td>{{ $planning->waktu_target }}</td>
           <td>
-            <a href="/dashboard/planning/{{ $planning->id }}" class="badge bg-info"><span data-feather="eye"></span></a>
-            <a href="/dashboard/planning/{{ $planning->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-            <form action="/dashboard/planning/{{ $planning->id }}" method="post" class="d-inline">
+            <a href="/planning/{{ $planning->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+            <form action="/planning/{{ $planning->id }}" method="post" class="d-inline">
               @method('delete')
               @csrf
               <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>

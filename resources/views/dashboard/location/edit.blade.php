@@ -6,6 +6,7 @@
     </div>
     <div class="col-lg-8">
         <form method="post" action="/location">
+            @method('put')
             @csrf
             <div class="mb-3">
                 <label for="kode" class="form-label">Kode Lokasi</label>
@@ -25,7 +26,7 @@
                 </div>
               @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 @endsection
