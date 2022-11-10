@@ -26,7 +26,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.location.create');
     }
 
     /**
@@ -37,7 +37,13 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'kode' => 'required|max:50|unique:locations',
+            'nama_lokasi' => 'required|max:255',
+        ]);
+        Location::create($validateData);
+
+        return redirect('/location')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -57,9 +63,11 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Location $location)
     {
-        //
+        return view('dashboard.location.edit',[
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -69,9 +77,22 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Location $location)
     {
-        //
+        $rules = [
+            'nama_location' => 'required|max:255',
+        ];
+
+        if ($request->kode != $location->kode){
+            $rules['kode'] = 'required|max:50|unique:locations';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Location::where('id', $location->id)
+            ->update($validateData);
+
+        return redirect('/location')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -80,8 +101,10 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Location $location)
     {
-        //
+        Location::destroy($location->id);
+
+        return redirect('/location')->with('success', 'Data Berhasil Dihapus');
     }
 }

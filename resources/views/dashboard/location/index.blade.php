@@ -10,7 +10,7 @@
     </div>
   @endif
   <div class="table-responsive col-lg-8">
-    <a href="/dashboard/location/create" class="btn btn-primary mb-3">Create</a>
+    <a href="/location/create" class="btn btn-primary mb-3">Create</a>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -27,9 +27,8 @@
           <td>{{ $location->kode }}</td>
           <td>{{ $location->nama_lokasi }}</td>
           <td>
-            <a href="/dashboard/location/{{ $location->id }}" class="badge bg-info"><span data-feather="eye"></span></a>
-            <a href="/dashboard/location/{{ $location->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-            <form action="/dashboard/location/{{ $location->id }}" method="post" class="d-inline">
+            <a href="/location/{{ $location->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+            <form action="/location/{{ $location->id }}" method="post" class="d-inline">
               @method('delete')
               @csrf
               <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
