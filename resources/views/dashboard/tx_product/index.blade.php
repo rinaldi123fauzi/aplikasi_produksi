@@ -10,13 +10,17 @@
     </div>
   @endif
   <div class="table-responsive col-lg-8">
-    <a href="/txproduct/create" class="btn btn-primary mb-3">Create</a>
+    <a href="/tx_product/create" class="btn btn-primary mb-3">Create</a>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Tanggal</th>
           <th scope="col">Kode Item</th>
-          <th scope="col">Lokasi</th>
+          <th scope="col">Nama Item</th>
+          <th scope="col">Kode Lokasi</th>
+          <th scope="col">Nama Lokasi</th>
+          <th scope="col">Created By</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -24,8 +28,12 @@
         @foreach ($txproducts as $txproduct)
         <tr>
           <td>{{ $loop->iteration }}</td>
+          <td>{{ $txproduct->transaction_date }}</td>
           <td>{{ $txproduct->item->kode }}</td>
+          <td>{{ $txproduct->item->nama_item }}</td>
           <td>{{ $txproduct->location->kode }}</td>
+          <td>{{ $txproduct->location->nama_lokasi }}</td>
+          <td>{{ $txproduct->npk }}</td>
           <td>
             <a href="/txproduct/{{ $txproduct->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
             <form action="/txproduct/{{ $txproduct->id }}" method="post" class="d-inline">

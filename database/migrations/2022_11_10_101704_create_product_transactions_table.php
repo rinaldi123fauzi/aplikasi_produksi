@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('npk');
             $table->foreignId('location_id');
             $table->foreignId('item_id');
             $table->integer('qty_transaction');

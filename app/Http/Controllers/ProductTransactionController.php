@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Location;
 use App\Models\ProductTransaction;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,10 @@ class ProductTransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.tx_product.create',[
+            'locations' => Location::all(),
+            'items' => Item::all()
+        ]);
     }
 
     /**
@@ -37,7 +42,20 @@ class ProductTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'location_id' => 'required',
+            'item_id' => 'required',
+            'qty_transaction' => 'required'
+        ]);
+
+        $ldate = date('Y-m-d H:i:s');
+
+        $validateData['transaction_date'] = $ldate;
+        $validateData['npk'] = auth()->user()->username;
+
+        ProductTransaction::create($validateData);
+
+        return redirect('/tx_product')->with('success', 'New post success');
     }
 
     /**

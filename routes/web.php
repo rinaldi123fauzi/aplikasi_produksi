@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationController;
@@ -46,3 +47,4 @@ Route::resource('/location', LocationController::class)->middleware('auth');
 Route::resource('/achivement', AchivementController::class)->middleware('auth');
 Route::resource('/planning', PlanningController::class)->middleware('auth');
 Route::resource('/tx_product', ProductTransactionController::class)->middleware('auth');
+Route::resource('/user', UserController::class)->middleware('auth');

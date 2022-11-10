@@ -62,16 +62,19 @@
             Dashboard
           </a>
         </li>
-        <li class="nav-item has-submenu">
-          <a class="nav-link dropdown-toggle" href="#"><span data-feather="file-text" class="align-text-bottom"></span> Data Master <i class="bi bi-caret-down"></i> </a>
-          <ul class="submenu collapse">
-              <li><a class="nav-link" href="/employee">Karyawan </a></li>
-              <li><a class="nav-link" href="/item">Item </a></li>
-              <li><a class="nav-link" href="/location">Lokasi </a></li>
-              <li><a class="nav-link" href="/achivement">Achivement </a></li>
-              <li><a class="nav-link" href="/planning">Plaining </a></li>
-          </ul>
-        </li>
+        @if (auth()->user()->username === "superadmin")
+          <li class="nav-item has-submenu">
+            <a class="nav-link dropdown-toggle" href="#"><span data-feather="file-text" class="align-text-bottom"></span> Data Master <i class="bi bi-caret-down"></i> </a>
+            <ul class="submenu collapse">
+                <li><a class="nav-link" href="/user">Data User </a></li>
+                <li><a class="nav-link" href="/employee">Karyawan </a></li>
+                <li><a class="nav-link" href="/item">Item </a></li>
+                <li><a class="nav-link" href="/location">Lokasi </a></li>
+                <li><a class="nav-link" href="/achivement">Achivement </a></li>
+                <li><a class="nav-link" href="/planning">Plaining </a></li>
+            </ul>
+          </li>
+        @endif
         <li class="nav-item has-submenu">
           <a class="nav-link dropdown-toggle" href="#"><span data-feather="file-text" class="align-text-bottom"></span> Data Transaksi <i class="bi bi-caret-down"></i> </a>
           <ul class="submenu collapse">
