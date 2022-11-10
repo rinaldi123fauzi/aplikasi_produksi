@@ -14,16 +14,32 @@ class ProductTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->username != "superadmin"){
-            return view('dashboard.tx_product.index', [
-                'txproducts' => ProductTransaction::with(['location','item'])->where('npk', auth()->user()->username)->latest()->get() //eager loading
-            ]);
+            if ($request->cariTanggal && $request->cariLokasi){
+                return view('dashboard.tx_product.index', [
+                    'txproducts' => ProductTransaction::with(['location','item'])->where([['npk', auth()->user()->username], ['transaction_date', 'like', "{$request->cariTanggal}%"], ['location_id', $request->cariLokasi]])->latest()->get(), //eager loading
+                    'locations' => Location::all()
+                ]);
+            }else{
+                return view('dashboard.tx_product.index', [
+                    'txproducts' => ProductTransaction::with(['location','item'])->where('npk', auth()->user()->username)->latest()->get(), //eager loading
+                    'locations' => Location::all()
+                ]);
+            }
         }else{
-            return view('dashboard.tx_product.index', [
-                'txproducts' => ProductTransaction::with(['location','item'])->latest()->get() //eager loading
-            ]);
+            if ($request->cariTanggal && $request->cariLokasi){
+                return view('dashboard.tx_product.index', [
+                    'txproducts' => ProductTransaction::with(['location','item'])->where([['transaction_date', 'like', "{$request->cariTanggal}%"], ['location_id', $request->cariLokasi]])->latest()->get(), //eager loading
+                    'locations' => Location::all()
+                ]);
+            }else{
+                return view('dashboard.tx_product.index', [
+                    'txproducts' => ProductTransaction::with(['location','item'])->latest()->get(), //eager loading
+                    'locations' => Location::all()
+                ]);
+            }
         }
     }
 

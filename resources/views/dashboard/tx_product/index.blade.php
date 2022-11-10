@@ -9,6 +9,30 @@
       {{ session('success') }}
     </div>
   @endif
+
+  <div class="col-lg-2" style="margin: 0 auto;">
+    <form method="get" action="/tx_product">
+        <div class="mb-3">
+          <label for="cariTanggal" class="form-label">Tanggal</label>
+          <input type="date" class="form-control" id="cariTanggal" name="cariTanggal" autofocus required>
+        </div>
+        <div class="mb-3">
+          <label for="cariLokasi" class="form-label">Lokasi</label>
+          <select class="form-select" name="cariLokasi" required>
+              <option selected>Open this select menu</option>
+              @foreach ($locations as $location)
+                  @if (old('location_id') == $location->id)
+                      <option value="{{ $location->id }}" selected>{{ $location->nama_lokasi }}</option>
+                  @else
+                      <option value="{{ $location->id }}">{{ $location->nama_lokasi }}</option>
+                  @endif
+              @endforeach
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mb-4">Cari</button>
+    </form>
+  </div>
+
   <div class="table-responsive col-lg-8">
     <a href="/tx_product/create" class="btn btn-primary mb-3">Create</a>
     <table class="table table-striped table-sm">
