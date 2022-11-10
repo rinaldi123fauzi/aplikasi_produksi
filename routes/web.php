@@ -1,8 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AchivementController;
+use App\Http\Controllers\PlanningController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +38,9 @@ Route::post('/register', [RegisterController::class, "store"]);
 Route::get('/dashboard', function(){
     return view('dashboard.index');
 })->middleware('auth');
+
+Route::resource('/employee', EmployeeController::class)->middleware('auth');
+Route::resource('/item', ItemController::class)->middleware('auth');
+Route::resource('/location', LocationController::class)->middleware('auth');
+Route::resource('/achivement', AchivementController::class)->middleware('auth');
+Route::resource('/planning', PlanningController::class)->middleware('auth');
