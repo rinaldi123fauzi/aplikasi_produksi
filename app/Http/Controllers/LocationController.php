@@ -80,7 +80,7 @@ class LocationController extends Controller
     public function update(Request $request, Location $location)
     {
         $rules = [
-            'nama_location' => 'required|max:255',
+            'nama_lokasi' => 'required|max:255',
         ];
 
         if ($request->kode != $location->kode){

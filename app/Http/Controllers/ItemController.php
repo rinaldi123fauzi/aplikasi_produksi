@@ -84,7 +84,7 @@ class ItemController extends Controller
         ];
 
         if ($request->kode != $item->kode){
-            $rules['kode'] = 'required|max:50|unique:employees';
+            $rules['kode'] = 'required|max:50|unique:items';
         }
 
         $validateData = $request->validate($rules);

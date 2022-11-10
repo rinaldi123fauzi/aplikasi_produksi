@@ -5,7 +5,7 @@
         <h1 class="h2">Edit Lokasi</h1>
     </div>
     <div class="col-lg-8">
-        <form method="post" action="/location">
+        <form method="post" action="/location/{{ $location->id }}">
             @method('put')
             @csrf
             <div class="mb-3">

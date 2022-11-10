@@ -8,8 +8,17 @@
         <form method="post" action="/tx_product">
             @csrf
             <div class="mb-3">
+                <label for="transaction_date" class="form-label">Tanggal</label>
+                <input type="text" class="form-control @error('transaction_date') is-invalid @enderror" id="transaction_date" name="transaction_date" value="{{ now()->format('Y-m-d H:i:s')  }}" readonly>
+                @error('transaction_date')
+                  <div class="invalid-feedback">
+                      {{ $message }}
+                  </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="category" class="form-label">Lokasi</label>
-                <select class="form-select" name="location_id">
+                <select class="form-select" name="location_id" autofocus>
                     <option selected>Open this select menu</option>
                     @foreach ($locations as $location)
                         @if (old('location_id') == $location->id)
@@ -35,7 +44,7 @@
             </div>
             <div class="mb-3">
                 <label for="qty_transaction" class="form-label">Qty </label>
-                <input type="number" class="form-control @error('qty_transaction') is-invalid @enderror" id="qty_transaction" name="qty_transaction" autofocus value="{{ old('qty_transaction') }}">
+                <input type="number" class="form-control @error('qty_transaction') is-invalid @enderror" id="qty_transaction" name="qty_transaction" value="{{ old('qty_transaction') }}">
                 @error('qty_transaction')
                   <div class="invalid-feedback">
                       {{ $message }}
