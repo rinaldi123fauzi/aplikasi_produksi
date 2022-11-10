@@ -10,7 +10,7 @@
     </div>
   @endif
   <div class="table-responsive col-lg-8">
-    <a href="/dashboard/employee/create" class="btn btn-primary mb-3">Create</a>
+    <a href="/employee/create" class="btn btn-primary mb-3">Create</a>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -30,8 +30,8 @@
           <td>{{ $employee->alamat }}</td>
           <td>
             <a href="/dashboard/employee/{{ $employee->id }}" class="badge bg-info"><span data-feather="eye"></span></a>
-            <a href="/dashboard/employee/{{ $employee->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-            <form action="/dashboard/employee/{{ $employee->id }}" method="post" class="d-inline">
+            <a href="/employee/{{ $employee->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+            <form action="/employee/{{ $employee->id }}" method="post" class="d-inline">
               @method('delete')
               @csrf
               <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>

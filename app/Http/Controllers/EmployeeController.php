@@ -26,7 +26,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.employee.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'npk' => 'required|max:50|unique:employees',
+            'nama' => 'required|max:255',
+            'alamat' => 'required|max:255',
+        ]);
+        Employee::create($validateData);
+
+        return redirect('/employee')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -57,9 +64,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        return view('dashboard.employee.edit',[
+            'employee' => $employee,
+        ]);
     }
 
     /**
@@ -69,9 +78,23 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $rules = [
+            'nama' => 'required|max:255',
+            'alamat' => 'required|max:255',
+        ];
+
+        if ($request->npk != $employee->npk){
+            $rules['npk'] = 'required|max:50|unique:employees';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Employee::where('id', $employee->id)
+            ->update($validateData);
+
+        return redirect('/employee')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -80,8 +103,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        //
+        Employee::destroy($employee->id);
+
+        return redirect('/employee')->with('success', 'Data Berhasil Dihapus');
     }
 }
