@@ -75,9 +75,7 @@
         <li class="nav-item has-submenu">
           <a class="nav-link dropdown-toggle" href="#"><span data-feather="file-text" class="align-text-bottom"></span> Data Transaksi <i class="bi bi-caret-down"></i> </a>
           <ul class="submenu collapse">
-              <li><a class="nav-link" href="#">Submenu item 1 </a></li>
-              <li><a class="nav-link" href="#">Submenu item 2 </a></li>
-              <li><a class="nav-link" href="#">Submenu item 3 </a> </li>
+              <li><a class="nav-link" href="/tx_product">Transaksi Produk</a></li>
           </ul>
         </li>
       </ul>

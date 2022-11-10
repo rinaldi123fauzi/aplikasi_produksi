@@ -5,9 +5,10 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AchivementController;
-use App\Http\Controllers\PlanningController;
+use App\Http\Controllers\ProductTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,4 @@ Route::resource('/item', ItemController::class)->middleware('auth');
 Route::resource('/location', LocationController::class)->middleware('auth');
 Route::resource('/achivement', AchivementController::class)->middleware('auth');
 Route::resource('/planning', PlanningController::class)->middleware('auth');
+Route::resource('/tx_product', ProductTransactionController::class)->middleware('auth');
