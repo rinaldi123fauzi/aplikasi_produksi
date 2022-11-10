@@ -44,6 +44,7 @@
           <th scope="col">Nama Item</th>
           <th scope="col">Kode Lokasi</th>
           <th scope="col">Nama Lokasi</th>
+          <th scope="col">Qty Actual</th>
           <th scope="col">Created By</th>
           <th scope="col">Action</th>
         </tr>
@@ -57,16 +58,17 @@
           <td>{{ $txproduct->item->nama_item }}</td>
           <td>{{ $txproduct->location->kode }}</td>
           <td>{{ $txproduct->location->nama_lokasi }}</td>
+          <td>{{ $txproduct->qty_transaction }}</td>
           <td>{{ $txproduct->npk }}</td>
           <td>
-            @if (auth()->user()->username != "superadmin")
+            {{-- @if (auth()->user()->username != "superadmin") --}}
               <a href="/tx_product/{{ $txproduct->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
               <form action="/tx_product/{{ $txproduct->id }}" method="post" class="d-inline">
                 @method('delete')
                 @csrf
                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
               </form>
-            @endif
+            {{-- @endif --}}
           </td>
         </tr>
         @endforeach

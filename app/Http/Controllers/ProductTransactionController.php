@@ -124,7 +124,9 @@ class ProductTransactionController extends Controller
 
         $validateData = $request->validate($rules);
 
-        $validateData['npk'] = auth()->user()->username;
+        if (auth()->user()->username != "superadmin"){
+            $validateData['npk'] = auth()->user()->username;
+        }
 
         ProductTransaction::where('id', $id)
             ->update($validateData);
