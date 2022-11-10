@@ -26,7 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.item.create');
     }
 
     /**
@@ -37,7 +37,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'kode' => 'required|max:50|unique:items',
+            'nama_item' => 'required|max:255',
+        ]);
+        Item::create($validateData);
+
+        return redirect('/item')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -57,9 +63,11 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Item $item)
     {
-        //
+        return view('dashboard.item.edit',[
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -69,9 +77,22 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        $rules = [
+            'nama_item' => 'required|max:255',
+        ];
+
+        if ($request->kode != $item->kode){
+            $rules['kode'] = 'required|max:50|unique:employees';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Item::where('id', $item->id)
+            ->update($validateData);
+
+        return redirect('/item')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -80,8 +101,10 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Item $item)
     {
-        //
+        Item::destroy($item->id);
+
+        return redirect('/item')->with('success', 'Data Berhasil Dihapus');
     }
 }
