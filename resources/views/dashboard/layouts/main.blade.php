@@ -50,7 +50,7 @@
                   data: [
                     @foreach ($transaksi as $tx)
                     <?php 
-                      $data = DB::table('product_transactions')->select("qty_transaction")->whereDate("transaction_date", $tx->tanggal_transaksi)->get()->count();
+                      $data = DB::table('product_transactions')->whereDate("transaction_date", $tx->tanggal_transaksi)->get()->sum('qty_transaction');
                     ?>
                       "{{ $data }}",
                     @endforeach
