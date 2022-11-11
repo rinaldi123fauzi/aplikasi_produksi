@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductTransaction;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
@@ -23,7 +24,9 @@ use App\Http\Controllers\ProductTransactionController;
 */
 
 Route::get('/', function () {
-    return view('dashboard.index');
+    return view('dashboard.index', [
+        'transaksi' => ProductTransaction::selectRaw("to_date(cast(transaction_date as TEXT),'YYYY-MM-DD') as tanggal_transaksi")->distinct()->get()
+    ]);
 })->middleware('auth');
 
 

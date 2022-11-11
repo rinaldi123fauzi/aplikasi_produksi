@@ -43,6 +43,19 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="category" class="form-label">Planning</label>
+                <select class="form-select" name="item_id">
+                    <option selected>Open this select menu</option>
+                    @foreach ($plannings as $planning)
+                        @if (old('planning_id') == $planning->id)
+                            <option value="{{ $planning->id }}" selected>{{ $planning->kode }}</option>
+                        @else
+                            <option value="{{ $planning->id }}">{{ $planning->kode }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="qty_transaction" class="form-label">Qty </label>
                 <input type="number" class="form-control @error('qty_transaction') is-invalid @enderror" id="qty_transaction" name="qty_transaction" value="{{ old('qty_transaction') }}">
                 @error('qty_transaction')

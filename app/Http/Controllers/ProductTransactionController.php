@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Location;
+use App\Models\Planning;
 use App\Models\ProductTransaction;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,8 @@ class ProductTransactionController extends Controller
     {
         return view('dashboard.tx_product.create',[
             'locations' => Location::all(),
-            'items' => Item::all()
+            'items' => Item::all(),
+            'plannings' => Planning::all()
         ]);
     }
 
