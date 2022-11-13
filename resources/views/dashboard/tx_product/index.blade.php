@@ -38,7 +38,7 @@
     <table class="table table-striped table-sm">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">No</th>
           <th scope="col">Tanggal</th>
           <th scope="col">Kode Item</th>
           <th scope="col">Nama Item</th>
