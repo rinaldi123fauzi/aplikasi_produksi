@@ -9,6 +9,10 @@
             @method('put')
             @csrf
             <div class="mb-3">
+                <label for="transaction_date" class="form-label">Tanggal</label>
+                <input type="text" class="form-control" id="transaction_date" value="{{ now()->format('d M Y H:i:s')  }}" disabled>
+            </div>
+            <div class="mb-3">
                 <label for="category" class="form-label">Lokasi</label>
                 <select class="form-select" name="location_id">
                     <option selected>Open this select menu</option>

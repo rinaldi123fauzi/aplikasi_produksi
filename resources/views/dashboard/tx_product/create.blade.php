@@ -9,12 +9,7 @@
             @csrf
             <div class="mb-3">
                 <label for="transaction_date" class="form-label">Tanggal</label>
-                <input type="text" class="form-control @error('transaction_date') is-invalid @enderror" id="transaction_date" name="transaction_date" value="{{ now()->format('Y-m-d H:i:s')  }}" readonly>
-                @error('transaction_date')
-                  <div class="invalid-feedback">
-                      {{ $message }}
-                  </div>
-                @enderror
+                <input type="text" class="form-control" id="transaction_date" value="{{ now()->format('d M Y H:i:s')  }}" disabled>
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Lokasi</label>
@@ -38,19 +33,6 @@
                             <option value="{{ $item->id }}" selected>{{ $item->nama_item }}</option>
                         @else
                             <option value="{{ $item->id }}">{{ $item->nama_item }}</option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Planning</label>
-                <select class="form-select" name="item_id">
-                    <option selected>Open this select menu</option>
-                    @foreach ($plannings as $planning)
-                        @if (old('planning_id') == $planning->id)
-                            <option value="{{ $planning->id }}" selected>{{ $planning->kode }}</option>
-                        @else
-                            <option value="{{ $planning->id }}">{{ $planning->kode }}</option>
                         @endif
                     @endforeach
                 </select>
